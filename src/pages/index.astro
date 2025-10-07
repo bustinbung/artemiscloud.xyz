@@ -1,0 +1,143 @@
+---
+import "modern-normalize/modern-normalize.css";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>artemiscloud.xyz</title>
+	</head>
+	<body>
+		<div id="circle"></div>
+		<div>
+			<h1>artemiscloud.xyz</h1>
+			<h2>a personal use playground domain.</h2>
+		</div>
+	</body>
+</html>
+
+<style lang="scss">
+	@font-face {
+		font-family: "PP Mori";
+		src:
+			local('PP Mori ExtraBold'),
+			url("/fonts/PP-Mori-ExtraBold.woff2") format("woff2"),
+			url("/fonts/PP-Mori-ExtraBold.woff") format("woff");
+		font-weight: 680;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: "PP Mori";
+		src:
+			local('PP Mori SemiBold'),
+			url("/fonts/PP-Mori-SemiBold.woff2") format("woff2"),
+			url("/fonts/PP-Mori-SemiBold.woff") format("woff");
+		font-weight: 615;
+		font-display: swap;
+	}
+	html {
+		overscroll-behavior: none;
+	}
+
+	body {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100vw;
+		height: 100vh;
+		flex-direction: column;
+		padding-inline: 5vw;
+		background-color: black;
+		background-image: radial-gradient(#333 1px, transparent 0);
+		background-size: 30px 30px;
+		background-position: -10px -10px;
+		overflow: hidden;
+		position: fixed;
+		font-family: "PP Mori";
+	}
+
+	#content {
+		background-color: white;
+	}
+
+	h1,
+	h2 {
+		margin: 0;
+		padding: 0.5rem;
+		width: fit-content;
+		color: white;
+	}
+
+	h1 {
+		font-weight: 680;
+	}
+
+	h2 {
+		color: lightgray;
+		font-weight: 615;
+	}
+
+	#circle {
+		width: 200px;
+		height: 200px;
+		border-radius: 50%;
+		background-color: #64a6bd;
+		position: absolute;
+		z-index: -1;
+		filter: blur(20px);
+		animation: color-cycle 10s linear infinite alternate;
+		opacity: 75%;
+	}
+
+	@keyframes color-cycle {
+		0% {
+			background-color: #64a6bd;
+		}
+
+		25% {
+			background-color: #90a8c3;
+		}
+
+		50% {
+			background-color: #ada7c9;
+		}
+
+		75% {
+			background-color: #d7b9d5;
+		}
+
+		100% {
+			background-color: #f4cae0;
+		}
+	}
+</style>
+
+<script>
+	const circle: HTMLElement = document.querySelector("#circle")!;
+	const radius = circle.getBoundingClientRect().width / 2;
+
+	onmousemove = (event) => {
+		circle.animate(
+			{
+				left: `${event.clientX - radius}px`,
+				top: `${event.clientY - radius}px`,
+			},
+			{ duration: 500, fill: "forwards", easing: "ease-in" },
+		);
+	};
+
+	ontouchmove = (event) => {
+		circle.animate(
+			{
+				left: `${event.touches[0].clientX - radius}px`,
+				top: `${event.touches[0].clientY - radius}px`,
+			},
+			{ duration: 500, fill: "forwards", easing: "ease-in" },
+		);
+	};
+</script>
